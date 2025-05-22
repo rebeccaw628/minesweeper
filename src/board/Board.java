@@ -26,7 +26,7 @@ public class Board {
 
     public void printGrid() {
         //print column labels
-        System.out.print("    ");
+        System.out.print("    "); //indenting to account for row labels
         for (int col = 1; col <= columns; col++) {
             System.out.print(" " + col + " ");
 
@@ -91,7 +91,7 @@ public class Board {
         if (selectedCell.getIsMine()) {
             System.out.println("BOOM! You hit a mine. You lost :(");
             selectedCell.setIsRevealed(true);
-            return true; //mine hit
+            return true; //mine hit, game ends
         }
         else if (selectedCell.getIsRevealed()) {
             System.out.println("The cell in row " + rowInput + ", column " + columnInput + " has already been revealed.  Select another cell.");
