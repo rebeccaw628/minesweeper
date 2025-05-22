@@ -77,7 +77,7 @@ public class Board {
         for (int i = row - 1; i <= row + 1; i++) {
             for (int j = column - 1; j <= column + 1; j++) {
                 if (i < 0 || i >= rows || j < 0 || j >= columns || i == row && j == column) {
-                    continue;
+                    continue; //breaks a single iteration
                 } else if (grid[i][j].getIsMine()) {
                     count++;
                 }
