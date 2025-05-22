@@ -51,9 +51,11 @@ Classes Overview:
 ### Challenges
 
 - Determining logic to count the number of adjacent mines for a cell -> created table to help:
-  | [i-1][j-1] | [i-1][j] | [i-1][j+1] |
-  | [i][j-1] | reference cell: [i][j] | [i][j+1] |
-  | [i+1][j-1] | [i+1][j] | [i+1][j+1] |
+  | | | |
+  |-------------|-------------|-------------|
+  | `[i-1][j-1]` | `[i-1][j]` | `[i-1][j+1]` |
+  | `[i][j-1]` | **`[i][j]`** (reference cell) | `[i][j+1]` |
+  | `[i+1][j-1]` | `[i+1][j]` | `[i+1][j+1]` |
 - Determining logic to reveal neighbouring cells if an empty cell is revealed -> Researched about Java Recursion
 
 ### Learnings
