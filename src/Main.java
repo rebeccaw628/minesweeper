@@ -1,15 +1,31 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import board.Board;
+import util.InputHandler;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Board gameBoard = new Board(10, 10, 10);
+        InputHandler inputHandler = new InputHandler();
+        while(true) {
+            gameBoard.printGrid();
+            int rowInput = inputHandler.inputValidator("Enter a row number (1-10)", 10);
+            int columnInput = inputHandler.inputValidator("Enter a column number (1-10)", 10);
+            gameBoard.revealCell(rowInput, columnInput);
+//            gameBoard.revealZeroMineCountCells(rowInput, columnInput);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+            if (gameBoard.isGameWon(rowInput,columnInput)) {
+                System.out.println("YOU WON! You steered clear of the mines. Congrats!");
+                gameBoard.printGrid();
+                break;
+            }
+            if (gameBoard.isGameLost(rowInput,columnInput)) {
+                System.out.println("BOOM! You hit a mine. You lost :(");
+                gameBoard.printGrid();
+                break;
+            }
         }
+
     }
+
 }

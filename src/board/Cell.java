@@ -5,10 +5,10 @@ public class Cell {
     private boolean isRevealed;
     private int adjacentMines;
 
-   public Cell(boolean isMine, boolean isRevealed, int adjacentMines) {
+   public Cell(boolean isMine) {
        this.isMine = isMine;
-       this.isRevealed = isRevealed;
-       this.adjacentMines = adjacentMines;
+       this.isRevealed = false;
+       this.adjacentMines = 0;
    }
 
    public boolean getIsMine () {
@@ -31,8 +31,8 @@ public class Cell {
        this.isRevealed = isRevealed;
    }
 
-   public void setAdjacentMines (int adjacentMines) {
-       this.adjacentMines = adjacentMines;
+   public void setAdjacentMines (int count) {
+       this.adjacentMines = count;
     }
 
 }
