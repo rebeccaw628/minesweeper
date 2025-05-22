@@ -34,5 +34,4 @@ public class Cell {
    public void setAdjacentMines (int count) {
        this.adjacentMines = count;
     }
-
 }

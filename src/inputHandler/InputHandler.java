@@ -1,4 +1,4 @@
-package util;
+package inputHandler;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -19,6 +19,10 @@ public class InputHandler {
                 else {
                     System.out.println("Invalid number selected. Enter a number between 1-" + upperBound);
                 }
+            }
+            else {
+                System.out.println("Invalid input. Only numbers between 1-" + upperBound + " are valid inputs.");
+                this.scanner.next();
             }
         }
     }

@@ -1,5 +1,5 @@
 import board.Board;
-import util.InputHandler;
+import inputHandler.InputHandler;
 
 
 public class Main {
@@ -18,13 +18,12 @@ public class Main {
                 break;
             }
 
-            if (gameBoard.isGameWon(rowInput,columnInput)) {
-                System.out.println("YOU WON! You steered clear of the mines. Congrats!");
+            if (gameBoard.isGameWon()) {
+                System.out.println("YOU WON! Good job, you steered clear of the mines :)");
                 gameBoard.printGrid();
                 break;
             }
         }
         inputHandler.closeScanner();
     }
-
 }

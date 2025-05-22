@@ -1,6 +1,5 @@
 package board;
 
-
 public class Board {
     private Cell[][] grid;
     private int rows;
@@ -36,7 +35,6 @@ public class Board {
 
         //print game grid
         for (int i = 0; i < rows; i++) {
-
             System.out.printf("%2d| ", i + 1); //print row labels
             for (int j = 0; j < columns; j++) {
                 if (!grid[i][j].getIsRevealed()) {
@@ -89,44 +87,57 @@ public class Board {
     }
 
     public boolean revealCell(int rowInput, int columnInput) {
-        if (grid[rowInput - 1][columnInput - 1].getIsMine()) {
+        Cell selectedCell = grid[rowInput - 1][columnInput - 1];
+        if (selectedCell.getIsMine()) {
             System.out.println("BOOM! You hit a mine. You lost :(");
-            grid[rowInput - 1][columnInput - 1].setIsRevealed(true);
+            selectedCell.setIsRevealed(true);
             return true; //mine hit
-        } else if (grid[rowInput - 1][columnInput - 1].getIsRevealed()) {
-            System.out.println("The cell in row " + rowInput + ", column " + columnInput + " has already been selected.  Select another cell.");
-        } else {
-            grid[rowInput - 1][columnInput - 1].setIsRevealed(true);
         }
-        return false; //no mine hit
+        else if (selectedCell.getIsRevealed()) {
+            System.out.println("The cell in row " + rowInput + ", column " + columnInput + " has already been revealed.  Select another cell.");
+        }
+        else if (selectedCell.getAdjacentMines() == 0){
+            selectedCell.setIsRevealed(true);
+            revealNeighbourCells(rowInput - 1, columnInput - 1);
+        }
+        else {
+            selectedCell.setIsRevealed(true);
+        }
+
+        return false;
     }
 
+    private void revealNeighbourCells (int row, int column) {
+        if (grid[row][column].getAdjacentMines() != 0) { //termination condition
+            return;
+        }
+        else {
+            for (int i = row - 1; i <= row + 1; i++) {
+                for (int j = column - 1; j <= column + 1; j++) {
+                    if (i < 0 || i >= rows || j < 0 || j >= columns || i == row && j == column || grid[i][j].getIsRevealed()) {
+                        continue;
+                    }
+                    grid[i][j].setIsRevealed(true);
+                    revealNeighbourCells(i,j); //recursive call
+                }
+            }
+        }
+    }
 
-    public boolean isGameWon (int rowInput, int columnInput) {
+    public boolean isGameWon () {
         int safeCellsRevealed = 0;
         int totalSafeCells = rows * columns - totalMines;
-            if (!grid[rowInput - 1][columnInput - 1].getIsMine()) {
-                safeCellsRevealed++;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (grid[i][j].getIsRevealed()) {
+                    safeCellsRevealed++;
+                }
             }
-        return safeCellsRevealed == totalSafeCells;
         }
-
-
-//    public void revealZeroMineCountCells (int rowInput, int columnInput) {
-//        int row = rowInput - 1;
-//        int column = columnInput - 1;
-//        for (int i = row-1; i <= row + 1; i++) {
-//            for (int j = column - 1; j <= column + 1; j++) {
-//                if (i < 0 || i >= rows || j < 0 || j >= columns || i == row && j == column) {
-//                    continue;
-//                }
-//                while(grid[i][j].getAdjacentMines() == 0) {
-//                    revealCell(i, j);
-//                }
-//            }
-//        }
-//    }
-
+        return safeCellsRevealed == totalSafeCells;
     }
+}
+
+
 
 
